@@ -1,0 +1,228 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{509512DE-EBFB-4B58-9EF8-C50632815712}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConveyorController</RootNamespace>
+    <AssemblyName>controller</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AlienRFID1, Version=1.2.16.0, Culture=neutral, PublicKeyToken=9fc0bb7473a972b4">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\AlienRFID1.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.DAQPulseLib, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\AxInterop.DAQPulseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.DAQCounterLib, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Interop.DAQCounterLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.DAQPulseLib, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Interop.DAQPulseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArtificialIntelligence.cs" />
+    <Compile Include="ArtificialIntelligenceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArtificialIntelligenceForm.Designer.cs">
+      <DependentUpon>ArtificialIntelligenceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="ConveyorCleverController.cs" />
+    <Compile Include="ConsoleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsoleForm.Designer.cs">
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConveyorBasicController.cs" />
+    <Compile Include="ControllerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ControllerForm.Designer.cs">
+      <DependentUpon>ControllerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConveyorInputDevice.cs" />
+    <Compile Include="ConveyorOutputDevice.cs" />
+    <Compile Include="ConveyorPart.cs" />
+    <Compile Include="DelayAction.cs" />
+    <Compile Include="DelayActionWaitingDevice.cs" />
+    <Compile Include="GoodOnConveyor.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonitorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonitorForm.Designer.cs">
+      <DependentUpon>MonitorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoAction.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ArtificialIntelligenceForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ArtificialIntelligenceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConsoleForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControllerForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ControllerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonitorForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RfidBasicController.cs" />
+    <Compile Include="RfidCleverController.cs" />
+    <Compile Include="Server.cs" />
+    <Compile Include="TextBoxWriter.cs" />
+    <Compile Include="_ConveyorState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxDAQDILib">
+      <Guid>{B69B88D6-A697-11D2-AA03-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxDAQDOLib">
+      <Guid>{DD19B926-A6A4-11D2-AA04-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="DAQAILib">
+      <Guid>{624EC978-8E3A-11D2-A9C9-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="DAQAOLib">
+      <Guid>{0970DD26-8809-11D2-A9B8-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="DAQDILib">
+      <Guid>{B69B88D6-A697-11D2-AA03-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="DAQDOLib">
+      <Guid>{DD19B926-A6A4-11D2-AA04-002018650913}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\darkblue_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\darkgreen_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\darkred_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\darkyellow_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\green_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow_lamp.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rfid_icon.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

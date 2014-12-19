@@ -1,0 +1,90 @@
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\controller.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\controller.exe
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\controller.pdb
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\AlienRFID1.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\AlienSS1.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\AxInterop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQCounterLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Debug\Interop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\controller.exe
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\controller.pdb
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\controller.csproj.ResolveComReference.cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.MainForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.Properties.Resources.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.ConsoleForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.ControllerForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.MonitorForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Debug\ConveyorController.ArtificialIntelligenceForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\controller.exe
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\controller.pdb
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\AlienRFID1.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\AxInterop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQCounterLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\AlienSS1.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\bin\Release\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\controller.csproj.ResolveComReference.cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.ArtificialIntelligenceForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.ConsoleForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.ControllerForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.MainForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.MonitorForm.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\ConveyorController.Properties.Resources.resources
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\controller.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\controller.exe
+C:\Documents and Settings\Administrator\桌面\1415FYP\controller\controller\controller\obj\Release\controller.pdb
+D:\controller\controller\obj\Debug\controller.exe
+D:\controller\controller\obj\Debug\controller.pdb
+D:\controller\controller\obj\Debug\ResolveAssemblyReference.cache
+D:\controller\controller\obj\Debug\Interop.DAQAILib.dll
+D:\controller\controller\obj\Debug\Interop.DAQAOLib.dll
+D:\controller\controller\obj\Debug\Interop.DAQDILib.dll
+D:\controller\controller\obj\Debug\Interop.DAQDOLib.dll
+D:\controller\controller\obj\Debug\AxInterop.DAQDILib.dll
+D:\controller\controller\obj\Debug\AxInterop.DAQDOLib.dll
+D:\controller\controller\obj\Debug\controller.csproj.ResolveComReference.cache
+D:\controller\controller\obj\Debug\ConveyorController.ArtificialIntelligenceForm.resources
+D:\controller\controller\obj\Debug\ConveyorController.ConsoleForm.resources
+D:\controller\controller\obj\Debug\ConveyorController.ControllerForm.resources
+D:\controller\controller\obj\Debug\ConveyorController.MainForm.resources
+D:\controller\controller\obj\Debug\ConveyorController.MonitorForm.resources
+D:\controller\controller\obj\Debug\ConveyorController.Properties.Resources.resources
+D:\controller\controller\obj\Debug\controller.csproj.GenerateResource.Cache
+D:\controller\controller\bin\Debug\controller.exe
+D:\controller\controller\bin\Debug\controller.pdb
+D:\controller\controller\bin\Debug\AlienRFID1.dll
+D:\controller\controller\bin\Debug\AxInterop.DAQPulseLib.dll
+D:\controller\controller\bin\Debug\Interop.DAQCounterLib.dll
+D:\controller\controller\bin\Debug\Interop.DAQPulseLib.dll
+D:\controller\controller\bin\Debug\AlienSS1.dll
+D:\controller\controller\bin\Debug\Interop.DAQAILib.dll
+D:\controller\controller\bin\Debug\Interop.DAQAOLib.dll
+D:\controller\controller\bin\Debug\Interop.DAQDILib.dll
+D:\controller\controller\bin\Debug\Interop.DAQDOLib.dll
+D:\controller\controller\bin\Debug\AxInterop.DAQDILib.dll
+D:\controller\controller\bin\Debug\AxInterop.DAQDOLib.dll
