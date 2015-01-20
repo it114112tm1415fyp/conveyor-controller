@@ -170,8 +170,6 @@ namespace ConveyorController
             int crId = chId % 2;
             lock (Locker[(int)ConveyorPart.Crossover1 + crId])
             {
-                Console.WriteLine(UploadCount[chId]);
-                Console.WriteLine(UploadCount[(chId + 2) % 4]);
                 if (UploadCount[(chId + 2) % 4] > 0)
                 {
                     if (UploadCount[chId] == 0)

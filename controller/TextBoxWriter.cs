@@ -22,7 +22,13 @@ namespace ConveyorController {
 
         public override void Write(char value)
         {
-            consoleOutput.Invoke(new Action<string>(consoleOutput.AppendText), value.ToString());
+            try
+            {
+                consoleOutput.Invoke(new Action<string>(consoleOutput.AppendText), value.ToString());
+            }
+            catch
+            {
+            }
         }
 
     }
