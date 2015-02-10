@@ -108,7 +108,7 @@ namespace ConveyorController
                 {
                     connectionTestCount = 0;
                     Console.WriteLine("Connecting to server");
-                    client = new TcpClient("it114112tm1415fyp1.redirectme.net", 8001);
+                    client = new TcpClient(Config.serverAddress, Config.serverPort);
                     client.Client.IOControl(IOControlCode.KeepAliveValues, ioOptionValues, null);
                     stream = client.GetStream();
                     reader = new StreamReader(stream);

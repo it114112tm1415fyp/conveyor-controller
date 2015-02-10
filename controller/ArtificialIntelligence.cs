@@ -5,10 +5,11 @@ using System.Threading;
 
 namespace ConveyorController
 {
-    static class ArtificialIntelligence
+    abstract class ArtificialIntelligence
     {
 
-        public const int PrepareTime = 800;
+        public const int RFIDScanRangeMinimun = 2000;
+        public const int RFIDScanRangeMaxumun = 4000;
         /// <summary>
         /// wating time between two actions 
         /// </summary>
@@ -22,6 +23,13 @@ namespace ConveyorController
         /// time needs for goods to move to crossover roller
         /// </summary>
         public const int TimeC = 1400;
+        /// <summary>
+        /// time to start checking sensor before good arrival
+        /// </summary>
+        public const int TimeD = 800;
+        /// <summary>
+        /// time needs of a good move from sensor1 to specific sensor
+        /// </summary>
         public const int Time8 = 5000;
         public const int Time2 = 7600;
         public const int Time7 = 10200;
@@ -37,273 +45,290 @@ namespace ConveyorController
         public readonly static int[] ChSenser = { 8, 7, 5, 6 };
         public readonly static int[] SeQueue = { 8, 2, 7, 3, 5, 4, 6, 1 };
         public readonly static List<GoodOnConveyor> Goods = new List<GoodOnConveyor>();
-        public readonly static List<string>[] Down = { new List<string>(), new List<string>(), new List<string>(), new List<string>() };
-        public readonly static List<string>[] Up = { new List<string>(), new List<string>(), new List<string>(), new List<string>() };
+        public readonly static Dictionary<string, HandleMethod> GoodsHandleMethod = new Dictionary<string, HandleMethod>();
 
         readonly static int[] UploadCount = new int[4];
 
-        static bool _running;
-        public static bool running { get { return _running; } }
+        static ArtificialIntelligenceInterface artificialIntelligenceInterface;
+        static int taskCount = 0;
+        static bool stopWhenNoTask = false;
+
+        static bool _running; public static bool running { get { return _running; } private set { _running = value; } }
 
         public static void init()
-        {
-            _running = false;
-        }
-
-        public static void start()
-        {
-            ConveyorBasicController.resetAll();
-            Goods.Clear();
-            for (int t = 0; t < ChQueue.Length; t++)
             {
-                Up[t].Clear();
-                Down[t].Clear();
-                UploadCount[t] = 0;
-            }
-            for (int t = 0; t < Locker.Length; t++)
+            running = false;
+        }
+
+            public static void start(ArtificialIntelligenceInterface artificialIntelligenceInterface)
             {
-                Locker[t] = new object();
-            }
-            Up[0].Add("AD83 1100 45CB 1D70 0E00 005E");
-            Up[1].Add("AD83 1100 45CB 516F 0E00 0065");
-            Up[2].Add("AD83 1100 45CC CD7E 1600 0096");
-            Up[3].Add("AD83 1100 45CC E57C 1600 0099");
-            ConveyorBasicController.mrC(0);
-            ConveyorCleverController.OnSenserTriggerOn[0] = onSenser0TriggerOn;
-            ConveyorCleverController.onEveryWorkingUnit = onEveryWorkingUnit;
-            ConveyorCleverController.OnOutputOn[(int)ConveyorOutputDevice.MainRollerClockwise] = onMainRollerClockwise;
-            RfidCleverController.onDetectRfid = onDetectRfid;
-            _running = true;
-        }
-
-        public static void stop()
-        {
-            ConveyorBasicController.mrS(0);
-            ConveyorCleverController.cleanDelegate();
-            RfidCleverController.cleanDelegate();
-            _running = false;
-        }
-
-        static void onSenser0TriggerOn(int senserId)
-        {
-            Goods.Add(new GoodOnConveyor());
-        }
-
-        static void onMainRollerClockwise(int bitId, bool on)
-        {
-            foreach (GoodOnConveyor x in Goods)
-            {
-                x.position += Config.workingUnit;
-            }
-            Goods.RemoveAll(goodPositionBiggerThanTime1);
-        }
-
-        static void onEveryWorkingUnit(int unitTime)
-        {
-            for (int t = 0; t < ChQueue.Length; t++)
-            {
-                goodPositionBetweenSpecificNumber__minLimit = ChTime[t] - PrepareTime;
-                goodPositionBetweenSpecificNumber__maxLimit = goodPositionBetweenSpecificNumber__minLimit + unitTime;
-                GoodOnConveyor good = Goods.Find(goodPositionBetweenSpecificNumber);
-                if (good != null)
+                ArtificialIntelligence.artificialIntelligenceInterface = artificialIntelligenceInterface;
+                ConveyorBasicController.resetAll();
+                Goods.Clear();
+                GoodsHandleMethod.Clear();
+                taskCount = 0;
+                stopWhenNoTask = false;
+                for (int t = 0; t < ChQueue.Length; t++)
                 {
-                    stringIsSpecificString__specificString = good.rfid_tag;
-                    if (Up[t].Exists(stringIsSpecificString))
+                    UploadCount[t] = 0;
+                }
+                for (int t = 0; t < Locker.Length; t++)
+                {
+                    Locker[t] = new object();
+                }
+                GoodsHandleMethod.Add("AD83 1100 45CB 1D70 0E00 005E", new HandleMethod(0, false));
+                GoodsHandleMethod.Add("AD83 1100 45CB 516F 0E00 0065", new HandleMethod(1, false));
+                GoodsHandleMethod.Add("AD83 1100 45CC CD7E 1600 0096", new HandleMethod(2, false));
+                GoodsHandleMethod.Add("AD83 1100 45CC E57C 1600 0099", new HandleMethod(3, false));
+                ConveyorBasicController.mrC(0);
+                ConveyorCleverController.OnSenserTriggerOn[0] = onSenser0TriggerOn;
+                ConveyorCleverController.onEveryWorkingUnit = onEveryWorkingUnit;
+                ConveyorCleverController.OnOutputOn[(int)ConveyorOutputDevice.MainRollerClockwise] = onMainRollerClockwise;
+                RfidCleverController.onDetectRfid = onDetectRfid;
+                running = true;
+            }
+
+            public static void stop()
+            {
+                stopWhenNoTask = true;
+            }
+
+            static void onSenser0TriggerOn(int senserId)
+            {
+                Goods.Add(new GoodOnConveyor());
+            }
+
+            static void onMainRollerClockwise(int bitId, bool on)
+            {
+                foreach (GoodOnConveyor x in Goods)
+                {
+                    x.position += Config.workingUnit;
+                }
+                Goods.RemoveAll(goodPositionBiggerThanTime1);
+            }
+
+            static void onEveryWorkingUnit(int unitTime)
+            {
+                if (stopWhenNoTask && taskCount == 0)
+                {
+                    ConveyorBasicController.mrS(0);
+                    ConveyorCleverController.cleanDelegate();
+                    RfidCleverController.cleanDelegate();
+                    running = false;
+                }
+                else if (!stopWhenNoTask)
+                {
+                    for (int t = 0; t < ChQueue.Length; t++)
                     {
-                        uploadGood(ChQueue[t], good);
+                        goodPositionBetweenSpecificNumber__minLimit = ChTime[t] - TimeD;
+                        goodPositionBetweenSpecificNumber__maxLimit = goodPositionBetweenSpecificNumber__minLimit + unitTime;
+                        GoodOnConveyor good = Goods.Find(goodPositionBetweenSpecificNumber);
+                        if (good != null && good.rfidTag != null)
+                        {
+                            HandleMethod handleMethod = GoodsHandleMethod[good.rfidTag];
+                            if (handleMethod.exitPoint == t)
+                                handleGood(ChQueue[t], good, handleMethod.upload);
+                        }
                     }
                 }
             }
-        }
 
-        static void onDetectRfid(string tag)
-        {
-            goodRfidTagIsSpecificTag__specificTag = tag;
-            if (!Goods.Exists(goodRfidTagIsSpecificTag))
+            static void onDetectRfid(string tag)
             {
-                GoodOnConveyor good = Goods.Find(goodRfidTagIsNull);
-                if (good != null)
+                goodRfidTagIsSpecificTag__specificTag = tag;
+                if (!Goods.Exists(goodRfidTagIsSpecificTag))
                 {
-                    good.rfid_tag = tag;
+                    GoodOnConveyor good = Goods.Find(goodRfidTagIsNullAndPositionBetweenRFIDScanRange);
+                    if (good != null)
+                    {
+                        good.rfidTag = tag;
+                        artificialIntelligenceInterface.onGoodDetected(good);
+                    }
                 }
             }
-        }
 
-        static bool uploadGood(int chId, GoodOnConveyor good)
-        {
-            bool result = UploadCount[chId] == 0 || UploadCount[(chId + 2) % 4] == 0;
-            if (result)
-                new Thread(uploadGoodThreadMain).Start(new object[] { chId, good });
-            return result;
-        }
-
-        static void uploadGoodThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int) pa[0];
-            GoodOnConveyor good = (GoodOnConveyor) pa[1];
-            po = new object[] { chId };
-            chHoldNextGoodThreadMain(po);
-            safeUploadGoodThreadMain(po);
-            Goods.Remove(good);
-            chResetThreadMain(po);
-        }
-
-        static void chHoldNextGood(int chId)
-        {
-            new Thread(chHoldNextGoodThreadMain).Start(new object[] { chId });
-        }
-
-        static void chHoldNextGoodThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int)pa[0];
-            int stId = (int)chId * 2 + (chId <= 1 ? 1 : 0);
-            int inputBitIndex = (int)ConveyorInputDevice.Senser5 + chId;
-            ConveyorCleverController.waitForInput(inputBitIndex, false, 1);
-            ConveyorCleverController.waitForInput(inputBitIndex, true, 1);
-            ConveyorBasicController.stU(stId);
-            ConveyorCleverController.waitForMainRoller(ConveyorMRState.Clockwise, TimeB);
-            ConveyorBasicController.mrS(chId);
-            ConveyorBasicController.chU(chId);
-            ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up, TimeA);
-        }
-
-        static void safeUploadGood(int chId)
-        {
-            new Thread(safeUploadGoodThreadMain).Start(new object[] { chId });
-        }
-
-        static void safeUploadGoodThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int)pa[0];
-            int crId = chId % 2;
-            lock (Locker[(int)ConveyorPart.Crossover1 + crId])
+            static bool handleGood(int chId, GoodOnConveyor good, bool upload)
             {
-                if (UploadCount[(chId + 2) % 4] > 0)
+                bool result = !upload || UploadCount[chId] == 0 || UploadCount[(chId + 2) % 4] == 0;
+                if (result)
+                    new Thread(handleGoodThreadMain).Start(new object[] { chId, good, upload });
+                return result;
+            }
+
+            static void handleGoodThreadMain(object po)
+            {
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                GoodOnConveyor good = (GoodOnConveyor)pa[1];
+                bool upload = (bool)pa[2];
+                // parameters deserialization finished
+                taskCount++;
+                po = new object[] { chId };
+                Thread.Sleep(TimeA);
+                chHoldNextGoodThreadMain(po);
+                if (upload)
                 {
-                    if (UploadCount[chId] == 0)
+                    safeUploadGoodThreadMain(po);
+                }
+                else
+                {
+                    throwGoodThreadMain(po);
+                }
+                Goods.Remove(good);
+                Thread.Sleep(TimeA);
+                chResetThreadMain(po);
+                taskCount--;
+            }
+
+            static void chHoldNextGood(int chId)
+            {
+                new Thread(chHoldNextGoodThreadMain).Start(new object[] { chId });
+            }
+
+            static void chHoldNextGoodThreadMain(object po)
+            {
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                // parameters deserialization finished
+                int stId = (int)chId * 2 + (chId <= 1 ? 1 : 0);
+                int inputBitIndex = (int)ConveyorInputDevice.Senser5 + chId;
+                ConveyorCleverController.waitForInput(inputBitIndex, false, 1);
+                ConveyorCleverController.waitForInput(inputBitIndex, true, 1);
+                ConveyorBasicController.stU(stId);
+                ConveyorCleverController.waitForMainRoller(ConveyorMRState.Clockwise, TimeB);
+                ConveyorBasicController.mrS(chId);
+                ConveyorBasicController.chU(chId);
+                ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up, TimeA);
+            }
+
+            static void safeUploadGood(int chId)
+            {
+                new Thread(safeUploadGoodThreadMain).Start(new object[] { chId });
+            }
+
+            static void safeUploadGoodThreadMain(object po)
+            {
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                // parameters deserialization finished
+                int crId = chId % 2;
+                lock (Locker[(int)ConveyorPart.Crossover1 + crId])
+                {
+                    if (UploadCount[(chId + 2) % 4] > 0)
                     {
-                        if (chId >= 2)
+                        if (UploadCount[chId] == 0)
                         {
-                            ConveyorBasicController.crB(crId);
-                            ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Backward, TimeC);
+                            if (chId >= 2)
+                            {
+                                ConveyorBasicController.crB(crId);
+                                ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Backward, TimeC);
+                            }
+                            else
+                            {
+                                ConveyorBasicController.crF(crId);
+                                ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Forward, TimeC);
+                            }
                         }
                         else
-                        {
-                            ConveyorBasicController.crF(crId);
-                            ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Forward, TimeC);
-                        }
+                            return;
                     }
-                    else
-                        return;
+                    ConveyorBasicController.crS(crId);
+                    ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Stop, TimeA);
+                    unsafeUploadGoodThreadMain(po);
                 }
+            }
+
+            static void unsafeUploadGood(int chId)
+            {
+                new Thread(unsafeUploadGoodThreadMain).Start(new object[] { chId });
+            }
+
+            static void unsafeUploadGoodThreadMain(object po)
+            {
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                // parameters deserialization finished
+                int crId = chId % 2;
+                UploadCount[chId]++;
+                if (chId >= 2)
+                {
+                    ConveyorBasicController.chF(chId);
+                    ConveyorBasicController.crF(crId);
+                    ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Forward, TimeC);
+                }
+                else
+                {
+                    ConveyorBasicController.chB(chId);
+                    ConveyorBasicController.crB(crId);
+                    ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Backward, TimeC);
+                }
+                ConveyorBasicController.chS(chId);
                 ConveyorBasicController.crS(crId);
-                ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Stop, TimeA);
-                unsafeUploadGoodThreadMain(po);
             }
-        }
 
-        static void unsafeUploadGood(int chId)
-        {
-            new Thread(unsafeUploadGoodThreadMain).Start(new object[] { chId });
-        }
-
-        static void unsafeUploadGoodThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int)pa[0];
-            int crId = chId % 2;
-            UploadCount[chId]++;
-            if (chId >= 2)
+            static void throwGood(int chId)
             {
-                ConveyorBasicController.chF(chId);
-                ConveyorBasicController.crF(crId);
-                ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Forward, TimeC);
+                new Thread(throwGoodThreadMain).Start(new object[] { chId });
             }
-            else
+
+            static void throwGoodThreadMain(object po)
             {
-                ConveyorBasicController.chB(chId);
-                ConveyorBasicController.crB(crId);
-                ConveyorCleverController.waitForCrossover(crId, ConveyorCrState.Backward, TimeC);
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                // parameters deserialization finished
+                int crId = chId % 2;
+                if (chId >= 2)
+                {
+                    ConveyorBasicController.chB(chId);
+                    ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up | ConveyorChState.Backward, TimeC);
+                }
+                else
+                {
+                    ConveyorBasicController.chF(chId);
+                    ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up | ConveyorChState.Forward, TimeC);
+                }
+                ConveyorBasicController.chS(chId);
             }
-            ConveyorBasicController.chS(chId);
-            ConveyorBasicController.crS(crId);
-        }
 
-        static void throwGood(int chId)
-        {
-            new Thread(throwGoodThreadMain).Start(new object[] { chId });
-        }
-
-        static void throwGoodThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int)pa[0];
-            int crId = chId % 2;
-            if (chId >= 2)
+            static void chReset(int chId)
             {
-                ConveyorBasicController.chB(chId);
-                ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up | ConveyorChState.Backward, TimeC);
+                new Thread(chResetThreadMain).Start(new object[] { chId });
             }
-            else
+
+            static void chResetThreadMain(object po)
             {
-                ConveyorBasicController.chF(chId);
-                ConveyorCleverController.waitForChangeover(chId, ConveyorChState.Up | ConveyorChState.Forward, TimeC);
+                object[] pa = (object[])po;
+                int chId = (int)pa[0];
+                // parameters deserialization finished
+                ConveyorBasicController.stD(chId * 2 + (chId <= 1 ? 1 : 0));
+                ConveyorBasicController.chD(chId);
+                ConveyorBasicController.mrC(0);
             }
 
-            ConveyorBasicController.chS(chId);
-            ConveyorBasicController.stD(chId * 2 + (chId <= 1 ? 1 : 0));
-            ConveyorBasicController.chD(chId);
-            ConveyorBasicController.mrC(0);
+            static int goodPositionBetweenSpecificNumber__minLimit;
+            static int goodPositionBetweenSpecificNumber__maxLimit;
+
+            static bool goodPositionBetweenSpecificNumber(GoodOnConveyor good)
+            {
+                return good.position >= goodPositionBetweenSpecificNumber__minLimit && good.position < goodPositionBetweenSpecificNumber__maxLimit;
+            }
+
+            static bool goodPositionBiggerThanTime1(GoodOnConveyor good)
+            {
+                return good.position > Time1;
+            }
+
+            static bool goodRfidTagIsNullAndPositionBetweenRFIDScanRange(GoodOnConveyor good)
+            {
+                return good.rfidTag == null && good.position >= RFIDScanRangeMinimun && good.position < RFIDScanRangeMaxumun;
+            }
+
+            static string goodRfidTagIsSpecificTag__specificTag;
+
+            static bool goodRfidTagIsSpecificTag(GoodOnConveyor good)
+            {
+                return good.rfidTag == goodRfidTagIsSpecificTag__specificTag;
+            }
+
         }
-
-        static void chReset(int chId)
-        {
-            new Thread(chResetThreadMain).Start(new object[] { chId });
-        }
-
-        static void chResetThreadMain(object po)
-        {
-            object[] pa = (object[])po;
-            int chId = (int)pa[0];
-            ConveyorBasicController.stD(chId * 2 + (chId <= 1 ? 1 : 0));
-            ConveyorBasicController.chD(chId);
-            ConveyorBasicController.mrC(0);
-        }
-
-        static string stringIsSpecificString__specificString;
-
-        static bool stringIsSpecificString(string s)
-        {
-            return s == stringIsSpecificString__specificString;
-        }
-
-        static int goodPositionBetweenSpecificNumber__minLimit;
-        static int goodPositionBetweenSpecificNumber__maxLimit;
-
-        static bool goodPositionBetweenSpecificNumber(GoodOnConveyor good)
-        {
-            return good.position >= goodPositionBetweenSpecificNumber__minLimit && good.position < goodPositionBetweenSpecificNumber__maxLimit;
-        }
-
-        static bool goodPositionBiggerThanTime1(GoodOnConveyor good)
-        {
-            return good.position > Time1;
-        }
-
-        static bool goodRfidTagIsNull(GoodOnConveyor good)
-        {
-            return good.rfid_tag == null;
-        }
-
-        static string goodRfidTagIsSpecificTag__specificTag;
-
-        static bool goodRfidTagIsSpecificTag(GoodOnConveyor good)
-        {
-            return good.rfid_tag == goodRfidTagIsSpecificTag__specificTag;
-        }
-
     }
-}

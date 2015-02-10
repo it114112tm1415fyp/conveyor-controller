@@ -152,6 +152,7 @@ namespace ConveyorController
             this._image_rfid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this._image_rfid.TabIndex = 8;
             this._image_rfid.TabStop = false;
+            this._image_rfid.Click += new System.EventHandler(this._image_rfid_Click);
             // 
             // _label_title
             // 

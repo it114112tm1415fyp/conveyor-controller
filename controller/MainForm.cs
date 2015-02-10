@@ -8,7 +8,7 @@ namespace ConveyorController
     public partial class MainForm : Form
     {
 
-        public ArtificialIntelligenceForm artificialIntelligenceForm;
+        public AllocationForm artificialIntelligenceForm;
         public ConsoleForm consoleForm;
         public ControllerForm controllerForm;
         public MonitorForm monitorForm;
@@ -40,7 +40,7 @@ namespace ConveyorController
         {
             if (artificialIntelligenceForm == null || artificialIntelligenceForm.IsDisposed)
             {
-                artificialIntelligenceForm = new ArtificialIntelligenceForm();
+                artificialIntelligenceForm = new AllocationForm();
                 artificialIntelligenceForm.Show();
             }
             else
@@ -73,6 +73,16 @@ namespace ConveyorController
         {
             consoleForm.Show();
             consoleForm.Focus();
+        }
+
+        private void _image_rfid_Click(object sender, EventArgs e)
+        {
+            System.Collections.Specialized.NameValueCollection parameters = new System.Collections.Specialized.NameValueCollection();
+            parameters["rfid"] = "AD83 1100 45CB 1D70 0E00 005E";
+            string a = System.Text.Encoding.Default.GetString(new System.Net.WebClient().UploadValues("http://it114112tm1415fyp1.redirectme.net:6083/allocation/get_good_details", parameters));
+            Console.WriteLine(a);
+            Good b = LitJson.JsonMapper.ToObject<Good>(a);
+            Console.WriteLine(b.order_time);
         }
 
     }

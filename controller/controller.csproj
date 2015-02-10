@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Interop.DAQPulseLib.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -52,13 +56,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Allocation.cs" />
     <Compile Include="ArtificialIntelligence.cs" />
-    <Compile Include="ArtificialIntelligenceForm.cs">
+    <Compile Include="AllocationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ArtificialIntelligenceForm.Designer.cs">
-      <DependentUpon>ArtificialIntelligenceForm.cs</DependentUpon>
+    <Compile Include="AllocationForm.Designer.cs">
+      <DependentUpon>AllocationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArtificialIntelligenceInterface.cs" />
+    <Compile Include="Good.cs" />
+    <Compile Include="HandleMethod.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ConveyorCleverController.cs" />
     <Compile Include="ConsoleForm.cs">
@@ -95,9 +103,9 @@
     <Compile Include="NoAction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ArtificialIntelligenceForm.resx">
+    <EmbeddedResource Include="AllocationForm.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>ArtificialIntelligenceForm.cs</DependentUpon>
+      <DependentUpon>AllocationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsoleForm.resx">
       <SubType>Designer</SubType>

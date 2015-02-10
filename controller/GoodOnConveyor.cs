@@ -6,22 +6,22 @@ namespace ConveyorController
 {
     class GoodOnConveyor
     {
-        public string rfid_tag;
+        public string rfidTag;
         public int position;
 
         public GoodOnConveyor()
         {
         }
 
-        public GoodOnConveyor(string rfid_tag, int position)
+        public GoodOnConveyor(string rfidTag, int position)
         {
-            this.rfid_tag = rfid_tag;
+            this.rfidTag = rfidTag;
             this.position = position;
         }
 
         public override string ToString()
         {
-            return string.Format("tag:{0}, position:{1}", rfid_tag, position);
+            return string.Format("tag:{0}, position:{1}", rfidTag, position);
         }
         
     }

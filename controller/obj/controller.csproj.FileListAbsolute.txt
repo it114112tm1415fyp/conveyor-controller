@@ -68,7 +68,6 @@ D:\controller\controller\obj\Debug\Interop.DAQDOLib.dll
 D:\controller\controller\obj\Debug\AxInterop.DAQDILib.dll
 D:\controller\controller\obj\Debug\AxInterop.DAQDOLib.dll
 D:\controller\controller\obj\Debug\controller.csproj.ResolveComReference.cache
-D:\controller\controller\obj\Debug\ConveyorController.ArtificialIntelligenceForm.resources
 D:\controller\controller\obj\Debug\ConveyorController.ConsoleForm.resources
 D:\controller\controller\obj\Debug\ConveyorController.ControllerForm.resources
 D:\controller\controller\obj\Debug\ConveyorController.MainForm.resources
@@ -88,3 +87,5 @@ D:\controller\controller\bin\Debug\Interop.DAQDILib.dll
 D:\controller\controller\bin\Debug\Interop.DAQDOLib.dll
 D:\controller\controller\bin\Debug\AxInterop.DAQDILib.dll
 D:\controller\controller\bin\Debug\AxInterop.DAQDOLib.dll
+D:\controller\controller\obj\Debug\ConveyorController.AllocationForm.resources
+D:\controller\controller\bin\Debug\LitJson.dll
