@@ -128,16 +128,17 @@ namespace ConveyorController
 
         private void _timer_update_Tick(object sender, EventArgs e)
         {
+            bool enabled = !ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop] && !ArtificialIntelligence.running;
             foreach (Button x in mrButton.Values)
             {
-                x.Enabled = !ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop];
+                x.Enabled = enabled;
                 x.BackColor = SystemColors.Control;
             }
             foreach (Dictionary<ChButtomType, Button> x1 in chButton)
             {
                 foreach (Button x2 in x1.Values)
                 {
-                    x2.Enabled = !ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop];
+                    x2.Enabled = enabled;
                     x2.BackColor = SystemColors.Control;
                 }
             }
@@ -145,13 +146,13 @@ namespace ConveyorController
             {
                 foreach (Button x2 in x1.Values)
                 {
-                    x2.Enabled = !ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop];
+                    x2.Enabled = enabled;
                     x2.BackColor = SystemColors.Control;
                 }
             }
             foreach (Button x in stButton)
             {
-                x.Enabled = !ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop];
+                x.Enabled = enabled;
                 x.BackColor = SystemColors.Control;
             }
             mrButton[(MRButtomType)ConveyorBasicController.mrState].BackColor = Color.DodgerBlue;

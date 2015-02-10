@@ -186,6 +186,23 @@ namespace ConveyorController
             mrState = ConveyorMRState.Stop;
         }
 
+        public static void resetAll()
+        {
+            mrState = ConveyorMRState.Stop;
+            for (int t = 0; t < ChNum; t++)
+            {
+                ChStatus[t] = ConveyorChState.Down;
+            }
+            for (int t = 0; t < CrNum; t++)
+            {
+                CrStatus[t] = ConveyorCrState.Stop;
+            }
+            for (int t = 0; t < StNum; t++)
+            {
+                StStatus[t] = ConveyorStState.Down;
+            }
+        }
+
         /// <summary>
         /// stopperChange
         /// </summary>

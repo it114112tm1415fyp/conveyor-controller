@@ -42,8 +42,17 @@ namespace ConveyorController
 
         readonly static int[] UploadCount = new int[4];
 
+        static bool _running;
+        public static bool running { get { return _running; } }
+
+        public static void init()
+        {
+            _running = false;
+        }
+
         public static void start()
         {
+            ConveyorBasicController.resetAll();
             Goods.Clear();
             for (int t = 0; t < ChQueue.Length; t++)
             {
@@ -64,7 +73,7 @@ namespace ConveyorController
             ConveyorCleverController.onEveryWorkingUnit = onEveryWorkingUnit;
             ConveyorCleverController.OnOutputOn[(int)ConveyorOutputDevice.MainRollerClockwise] = onMainRollerClockwise;
             RfidCleverController.onDetectRfid = onDetectRfid;
-            //ConveyorCleverController.onSenserTriggerOn = onSenserTriggerOn;
+            _running = true;
         }
 
         public static void stop()
@@ -72,12 +81,8 @@ namespace ConveyorController
             ConveyorBasicController.mrS(0);
             ConveyorCleverController.cleanDelegate();
             RfidCleverController.cleanDelegate();
+            _running = false;
         }
-
-        /*static void onSenserTriggerOn(int senserId)
-        {
-            Console.WriteLine("{0} :--: {1}", senserId, Goods[0].position);
-        }*/
 
         static void onSenser0TriggerOn(int senserId)
         {
@@ -105,8 +110,7 @@ namespace ConveyorController
                     stringIsSpecificString__specificString = good.rfid_tag;
                     if (Up[t].Exists(stringIsSpecificString))
                     {
-                        Goods.Remove(good);
-                        uploadGood(ChQueue[t]);
+                        uploadGood(ChQueue[t], good);
                     }
                 }
             }
@@ -125,16 +129,23 @@ namespace ConveyorController
             }
         }
 
-        static void uploadGood(int chId)
+        static bool uploadGood(int chId, GoodOnConveyor good)
         {
-            if (UploadCount[chId] == 0 || UploadCount[(chId + 2) % 4] == 0)
-                new Thread(uploadGoodThreadMain).Start(new object[] { chId });
+            bool result = UploadCount[chId] == 0 || UploadCount[(chId + 2) % 4] == 0;
+            if (result)
+                new Thread(uploadGoodThreadMain).Start(new object[] { chId, good });
+            return result;
         }
 
         static void uploadGoodThreadMain(object po)
         {
+            object[] pa = (object[])po;
+            int chId = (int) pa[0];
+            GoodOnConveyor good = (GoodOnConveyor) pa[1];
+            po = new object[] { chId };
             chHoldNextGoodThreadMain(po);
             safeUploadGoodThreadMain(po);
+            Goods.Remove(good);
             chResetThreadMain(po);
         }
 

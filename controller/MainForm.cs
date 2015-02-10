@@ -8,6 +8,7 @@ namespace ConveyorController
     public partial class MainForm : Form
     {
 
+        public ArtificialIntelligenceForm artificialIntelligenceForm;
         public ConsoleForm consoleForm;
         public ControllerForm controllerForm;
         public MonitorForm monitorForm;
@@ -23,6 +24,7 @@ namespace ConveyorController
         private void MainForm_Load(object sender, EventArgs e)
         {
             Server.init();
+            ArtificialIntelligence.init();
             ConveyorBasicController.init(this);
             ConveyorCleverController.init();
             RfidBasicController.init();
@@ -32,6 +34,17 @@ namespace ConveyorController
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             ConveyorBasicController.stop();
+        }
+
+        private void _button_allocation_Click(object sender, EventArgs e)
+        {
+            if (artificialIntelligenceForm == null || artificialIntelligenceForm.IsDisposed)
+            {
+                artificialIntelligenceForm = new ArtificialIntelligenceForm();
+                artificialIntelligenceForm.Show();
+            }
+            else
+                artificialIntelligenceForm.Focus();
         }
 
         private void _button_conveyor_controller_Click(object sender, EventArgs e)
@@ -60,21 +73,6 @@ namespace ConveyorController
         {
             consoleForm.Show();
             consoleForm.Focus();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            ArtificialIntelligence.start();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ArtificialIntelligence.stop();
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            Console.WriteLine();
         }
 
     }
