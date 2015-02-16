@@ -53,7 +53,7 @@ namespace ConveyorController
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 320);
             this.Name = "ConsoleForm";
-            this.Text = "ConsoleForm";
+            this.Text = "Console";
             this.Load += new System.EventHandler(this.ConsoleForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleForm_FormClosing);
             this.ResumeLayout(false);

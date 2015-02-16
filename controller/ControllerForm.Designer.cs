@@ -623,7 +623,7 @@ namespace ConveyorController
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ControllerForm";
-            this.Text = "ControllerForm";
+            this.Text = "Conveyor Controller";
             this.Load += new System.EventHandler(this.ControllerForm_Load);
             this._group_box_stopper5.ResumeLayout(false);
             this._group_box_stopper8.ResumeLayout(false);

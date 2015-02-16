@@ -24,14 +24,16 @@ namespace ConveyorController
         static StreamWriter writer = null;
         static TcpClient client = null;
 
+        static bool _connected = false; public static bool connected { get { return _connected; } private set { _connected = value; } }
+
         public static void init()
         {
             new Thread(receiveThreadMain).Start();
             uint uintType = 0;
             ioOptionValues = new byte[Marshal.SizeOf(uintType) * 3];
-            BitConverter.GetBytes((uint) 1).CopyTo(ioOptionValues, 0);
-            BitConverter.GetBytes((uint) 5000).CopyTo(ioOptionValues, Marshal.SizeOf(uintType));
-            BitConverter.GetBytes((uint) 1000).CopyTo(ioOptionValues, Marshal.SizeOf(uintType) * 2);
+            BitConverter.GetBytes((uint)1).CopyTo(ioOptionValues, 0);
+            BitConverter.GetBytes((uint)5000).CopyTo(ioOptionValues, Marshal.SizeOf(uintType));
+            BitConverter.GetBytes((uint)1000).CopyTo(ioOptionValues, Marshal.SizeOf(uintType) * 2);
         }
 
         static void receiveThreadMain()
@@ -91,12 +93,13 @@ namespace ConveyorController
                 }
                 catch (Exception e)
                 {
+                    connected = false;
                     Console.WriteLine(e);
                     Console.WriteLine("Server disconnected");
+                    Thread.Sleep(200);
                     connectServer();
                 }
                 Thread.Sleep(50);
-                Thread.Sleep(200);
             }
         }
 
@@ -114,6 +117,7 @@ namespace ConveyorController
                     reader = new StreamReader(stream);
                     writer = new StreamWriter(stream);
                     writer.AutoFlush = true;
+                    connected = true;
                     Console.WriteLine("Server connect success");
                     break;
                 }

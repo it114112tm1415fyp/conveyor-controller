@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConveyorController
 {
-    struct Good
+    public struct Good
     {
         public bool flammable;
         public bool fragile;

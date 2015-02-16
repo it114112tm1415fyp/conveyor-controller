@@ -57,6 +57,14 @@ namespace ConveyorController
 
         static Thread refreshDataThread;
 
+        public static bool connected
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public static bool[] input
         {
             get

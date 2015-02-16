@@ -30,12 +30,12 @@ namespace ConveyorController
         {
             this.components = new System.ComponentModel.Container();
             this._list_view_goods_allocation = new System.Windows.Forms.ListView();
-            this._list_column_view_goods_allocation_goods_id = new System.Windows.Forms.ColumnHeader();
-            this._list_column_view_goods_allocation_rfid = new System.Windows.Forms.ColumnHeader();
-            this._list_column_view_goods_allocation_gate = new System.Windows.Forms.ColumnHeader();
-            this._list_goods_on_conveyor = new System.Windows.Forms.ListView();
-            this._list_column_goods_on_conveyor_rfid = new System.Windows.Forms.ColumnHeader();
-            this._list_column_goods_on_conveyor_position = new System.Windows.Forms.ColumnHeader();
+            this._list_view_goods_allocation_column_goods_id = new System.Windows.Forms.ColumnHeader();
+            this._list_view_goods_allocation_column_rfid = new System.Windows.Forms.ColumnHeader();
+            this._list_view_goods_allocation_column_gate = new System.Windows.Forms.ColumnHeader();
+            this._list_view_goods_on_conveyor = new System.Windows.Forms.ListView();
+            this._list_view_goods_on_conveyor_column_rfid = new System.Windows.Forms.ColumnHeader();
+            this._list_view_goods_on_conveyor_column_position = new System.Windows.Forms.ColumnHeader();
             this._group_box_goods_on_conveyor = new System.Windows.Forms.GroupBox();
             this._group_box_goods_information = new System.Windows.Forms.GroupBox();
             this._label_order_time_value = new System.Windows.Forms.Label();
@@ -59,6 +59,8 @@ namespace ConveyorController
             this._button_start = new System.Windows.Forms.Button();
             this._button_stop = new System.Windows.Forms.Button();
             this._timer_update = new System.Windows.Forms.Timer(this.components);
+            this._label_task = new System.Windows.Forms.Label();
+            this._label_task_value = new System.Windows.Forms.Label();
             this._group_box_goods_on_conveyor.SuspendLayout();
             this._group_box_goods_information.SuspendLayout();
             this.SuspendLayout();
@@ -66,9 +68,10 @@ namespace ConveyorController
             // _list_view_goods_allocation
             // 
             this._list_view_goods_allocation.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this._list_column_view_goods_allocation_goods_id,
-            this._list_column_view_goods_allocation_rfid,
-            this._list_column_view_goods_allocation_gate});
+            this._list_view_goods_allocation_column_goods_id,
+            this._list_view_goods_allocation_column_rfid,
+            this._list_view_goods_allocation_column_gate});
+            this._list_view_goods_allocation.FullRowSelect = true;
             this._list_view_goods_allocation.LabelWrap = false;
             this._list_view_goods_allocation.Location = new System.Drawing.Point(204, 339);
             this._list_view_goods_allocation.MultiSelect = false;
@@ -77,45 +80,49 @@ namespace ConveyorController
             this._list_view_goods_allocation.TabIndex = 2;
             this._list_view_goods_allocation.UseCompatibleStateImageBehavior = false;
             this._list_view_goods_allocation.View = System.Windows.Forms.View.Details;
+            this._list_view_goods_allocation.SelectedIndexChanged += new System.EventHandler(this._list_view_goods_allocation_SelectedIndexChanged);
             // 
-            // _list_column_view_goods_allocation_goods_id
+            // _list_view_goods_allocation_column_goods_id
             // 
-            this._list_column_view_goods_allocation_goods_id.Text = "ID";
+            this._list_view_goods_allocation_column_goods_id.Text = "ID";
             // 
-            // _list_column_view_goods_allocation_rfid
+            // _list_view_goods_allocation_column_rfid
             // 
-            this._list_column_view_goods_allocation_rfid.Text = "RFID";
-            this._list_column_view_goods_allocation_rfid.Width = 200;
+            this._list_view_goods_allocation_column_rfid.Text = "RFID";
+            this._list_view_goods_allocation_column_rfid.Width = 200;
             // 
-            // _list_column_view_goods_allocation_gate
+            // _list_view_goods_allocation_column_gate
             // 
-            this._list_column_view_goods_allocation_gate.Text = "Gate of Allocaton";
-            this._list_column_view_goods_allocation_gate.Width = 99;
+            this._list_view_goods_allocation_column_gate.Text = "Gate of Allocaton";
+            this._list_view_goods_allocation_column_gate.Width = 99;
             // 
-            // _list_goods_on_conveyor
+            // _list_view_goods_on_conveyor
             // 
-            this._list_goods_on_conveyor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this._list_column_goods_on_conveyor_rfid,
-            this._list_column_goods_on_conveyor_position});
-            this._list_goods_on_conveyor.Location = new System.Drawing.Point(6, 21);
-            this._list_goods_on_conveyor.Name = "_list_goods_on_conveyor";
-            this._list_goods_on_conveyor.Size = new System.Drawing.Size(264, 294);
-            this._list_goods_on_conveyor.TabIndex = 3;
-            this._list_goods_on_conveyor.UseCompatibleStateImageBehavior = false;
-            this._list_goods_on_conveyor.View = System.Windows.Forms.View.Details;
+            this._list_view_goods_on_conveyor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this._list_view_goods_on_conveyor_column_rfid,
+            this._list_view_goods_on_conveyor_column_position});
+            this._list_view_goods_on_conveyor.Cursor = System.Windows.Forms.Cursors.Cross;
+            this._list_view_goods_on_conveyor.Enabled = false;
+            this._list_view_goods_on_conveyor.FullRowSelect = true;
+            this._list_view_goods_on_conveyor.Location = new System.Drawing.Point(6, 21);
+            this._list_view_goods_on_conveyor.Name = "_list_view_goods_on_conveyor";
+            this._list_view_goods_on_conveyor.Size = new System.Drawing.Size(264, 294);
+            this._list_view_goods_on_conveyor.TabIndex = 3;
+            this._list_view_goods_on_conveyor.UseCompatibleStateImageBehavior = false;
+            this._list_view_goods_on_conveyor.View = System.Windows.Forms.View.Details;
             // 
-            // _list_column_goods_on_conveyor_rfid
+            // _list_view_goods_on_conveyor_column_rfid
             // 
-            this._list_column_goods_on_conveyor_rfid.Text = "RFID";
-            this._list_column_goods_on_conveyor_rfid.Width = 200;
+            this._list_view_goods_on_conveyor_column_rfid.Text = "RFID";
+            this._list_view_goods_on_conveyor_column_rfid.Width = 200;
             // 
-            // _list_column_goods_on_conveyor_position
+            // _list_view_goods_on_conveyor_column_position
             // 
-            this._list_column_goods_on_conveyor_position.Text = "Position";
+            this._list_view_goods_on_conveyor_column_position.Text = "Position";
             // 
             // _group_box_goods_on_conveyor
             // 
-            this._group_box_goods_on_conveyor.Controls.Add(this._list_goods_on_conveyor);
+            this._group_box_goods_on_conveyor.Controls.Add(this._list_view_goods_on_conveyor);
             this._group_box_goods_on_conveyor.Location = new System.Drawing.Point(289, 12);
             this._group_box_goods_on_conveyor.Name = "_group_box_goods_on_conveyor";
             this._group_box_goods_on_conveyor.Size = new System.Drawing.Size(278, 321);
@@ -155,26 +162,26 @@ namespace ConveyorController
             this._label_order_time_value.AutoSize = true;
             this._label_order_time_value.Location = new System.Drawing.Point(85, 165);
             this._label_order_time_value.Name = "_label_order_time_value";
-            this._label_order_time_value.Size = new System.Drawing.Size(33, 12);
+            this._label_order_time_value.Size = new System.Drawing.Size(15, 12);
             this._label_order_time_value.TabIndex = 17;
-            this._label_order_time_value.Text = "label7";
+            this._label_order_time_value.Text = "??";
             // 
             // _label_destination_value
             // 
             this._label_destination_value.Location = new System.Drawing.Point(85, 253);
             this._label_destination_value.Name = "_label_destination_value";
-            this._label_destination_value.Size = new System.Drawing.Size(100, 52);
+            this._label_destination_value.Size = new System.Drawing.Size(180, 52);
             this._label_destination_value.TabIndex = 16;
-            this._label_destination_value.Text = "label9";
+            this._label_destination_value.Text = "??";
             this._label_destination_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _label_departure_value
             // 
             this._label_departure_value.Location = new System.Drawing.Point(85, 189);
             this._label_departure_value.Name = "_label_departure_value";
-            this._label_departure_value.Size = new System.Drawing.Size(100, 52);
+            this._label_departure_value.Size = new System.Drawing.Size(180, 52);
             this._label_departure_value.TabIndex = 15;
-            this._label_departure_value.Text = "label8";
+            this._label_departure_value.Text = "??";
             this._label_departure_value.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _label_flammable_value
@@ -182,54 +189,54 @@ namespace ConveyorController
             this._label_flammable_value.AutoSize = true;
             this._label_flammable_value.Location = new System.Drawing.Point(85, 141);
             this._label_flammable_value.Name = "_label_flammable_value";
-            this._label_flammable_value.Size = new System.Drawing.Size(33, 12);
+            this._label_flammable_value.Size = new System.Drawing.Size(15, 12);
             this._label_flammable_value.TabIndex = 14;
-            this._label_flammable_value.Text = "label6";
+            this._label_flammable_value.Text = "??";
             // 
             // _label_fragile_value
             // 
             this._label_fragile_value.AutoSize = true;
             this._label_fragile_value.Location = new System.Drawing.Point(85, 117);
             this._label_fragile_value.Name = "_label_fragile_value";
-            this._label_fragile_value.Size = new System.Drawing.Size(33, 12);
+            this._label_fragile_value.Size = new System.Drawing.Size(15, 12);
             this._label_fragile_value.TabIndex = 13;
-            this._label_fragile_value.Text = "label5";
+            this._label_fragile_value.Text = "??";
             // 
             // _label_weight_value
             // 
             this._label_weight_value.AutoSize = true;
             this._label_weight_value.Location = new System.Drawing.Point(85, 93);
             this._label_weight_value.Name = "_label_weight_value";
-            this._label_weight_value.Size = new System.Drawing.Size(33, 12);
+            this._label_weight_value.Size = new System.Drawing.Size(15, 12);
             this._label_weight_value.TabIndex = 12;
-            this._label_weight_value.Text = "label4";
+            this._label_weight_value.Text = "??";
             // 
             // _label_rfid_value
             // 
             this._label_rfid_value.AutoSize = true;
             this._label_rfid_value.Location = new System.Drawing.Point(85, 69);
             this._label_rfid_value.Name = "_label_rfid_value";
-            this._label_rfid_value.Size = new System.Drawing.Size(33, 12);
+            this._label_rfid_value.Size = new System.Drawing.Size(15, 12);
             this._label_rfid_value.TabIndex = 11;
-            this._label_rfid_value.Text = "label3";
+            this._label_rfid_value.Text = "??";
             // 
             // _label_order_id_value
             // 
             this._label_order_id_value.AutoSize = true;
             this._label_order_id_value.Location = new System.Drawing.Point(85, 45);
             this._label_order_id_value.Name = "_label_order_id_value";
-            this._label_order_id_value.Size = new System.Drawing.Size(33, 12);
+            this._label_order_id_value.Size = new System.Drawing.Size(15, 12);
             this._label_order_id_value.TabIndex = 10;
-            this._label_order_id_value.Text = "label2";
+            this._label_order_id_value.Text = "??";
             // 
             // _label_goods_id_value
             // 
             this._label_goods_id_value.AutoSize = true;
             this._label_goods_id_value.Location = new System.Drawing.Point(85, 21);
             this._label_goods_id_value.Name = "_label_goods_id_value";
-            this._label_goods_id_value.Size = new System.Drawing.Size(33, 12);
+            this._label_goods_id_value.Size = new System.Drawing.Size(15, 12);
             this._label_goods_id_value.TabIndex = 9;
-            this._label_goods_id_value.Text = "label1";
+            this._label_goods_id_value.Text = "??";
             // 
             // _label_order_time
             // 
@@ -336,35 +343,56 @@ namespace ConveyorController
             // 
             this._timer_update.Tick += new System.EventHandler(this._timer_update_Tick);
             // 
-            // ArtificialIntelligenceForm
+            // _label_task
+            // 
+            this._label_task.AutoSize = true;
+            this._label_task.Location = new System.Drawing.Point(10, 493);
+            this._label_task.Name = "_label_task";
+            this._label_task.Size = new System.Drawing.Size(27, 12);
+            this._label_task.TabIndex = 8;
+            this._label_task.Text = "Task";
+            // 
+            // _label_task_value
+            // 
+            this._label_task_value.AutoSize = true;
+            this._label_task_value.Location = new System.Drawing.Point(43, 493);
+            this._label_task_value.Name = "_label_task_value";
+            this._label_task_value.Size = new System.Drawing.Size(11, 12);
+            this._label_task_value.TabIndex = 9;
+            this._label_task_value.Text = "0";
+            // 
+            // AllocationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 517);
+            this.Controls.Add(this._label_task_value);
+            this.Controls.Add(this._label_task);
             this.Controls.Add(this._button_stop);
             this.Controls.Add(this._button_start);
             this.Controls.Add(this._group_box_goods_information);
             this.Controls.Add(this._group_box_goods_on_conveyor);
             this.Controls.Add(this._list_view_goods_allocation);
-            this.Name = "ArtificialIntelligenceForm";
-            this.Text = "ArtificialIntelligenceForm";
+            this.Name = "AllocationForm";
+            this.Text = "Allocation";
             this.Load += new System.EventHandler(this.ArtificialIntelligenceForm_Load);
             this._group_box_goods_on_conveyor.ResumeLayout(false);
             this._group_box_goods_information.ResumeLayout(false);
             this._group_box_goods_information.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ListView _list_view_goods_allocation;
-        private System.Windows.Forms.ListView _list_goods_on_conveyor;
-        private System.Windows.Forms.ColumnHeader _list_column_goods_on_conveyor_rfid;
-        private System.Windows.Forms.ColumnHeader _list_column_goods_on_conveyor_position;
-        private System.Windows.Forms.ColumnHeader _list_column_view_goods_allocation_rfid;
-        private System.Windows.Forms.ColumnHeader _list_column_view_goods_allocation_goods_id;
-        private System.Windows.Forms.ColumnHeader _list_column_view_goods_allocation_gate;
+        private System.Windows.Forms.ListView _list_view_goods_on_conveyor;
+        private System.Windows.Forms.ColumnHeader _list_view_goods_on_conveyor_column_rfid;
+        private System.Windows.Forms.ColumnHeader _list_view_goods_on_conveyor_column_position;
+        private System.Windows.Forms.ColumnHeader _list_view_goods_allocation_column_rfid;
+        private System.Windows.Forms.ColumnHeader _list_view_goods_allocation_column_goods_id;
+        private System.Windows.Forms.ColumnHeader _list_view_goods_allocation_column_gate;
         private System.Windows.Forms.GroupBox _group_box_goods_on_conveyor;
         private System.Windows.Forms.GroupBox _group_box_goods_information;
         private System.Windows.Forms.Label _label_destination;
@@ -388,5 +416,7 @@ namespace ConveyorController
         private System.Windows.Forms.Label _label_order_id_value;
         private System.Windows.Forms.Label _label_goods_id_value;
         private System.Windows.Forms.Timer _timer_update;
+        private System.Windows.Forms.Label _label_task;
+        private System.Windows.Forms.Label _label_task_value;
     }
 }

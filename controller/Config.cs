@@ -9,7 +9,7 @@ namespace ConveyorController
 
         // server config
         public const string serverAddress = "it114112tm1415fyp1.redirectme.net";
-        public const int serverPort = 8081;
+        public const int serverPort = 8001;
 
         // runtime config
         public const int workingUnit = 50;

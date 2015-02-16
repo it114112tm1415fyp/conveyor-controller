@@ -4,17 +4,17 @@ using System.Text;
 
 namespace ConveyorController
 {
-    class GoodOnConveyor
+    public class GoodOnConveyor
     {
-        public string rfidTag;
+        public bool left;
         public int position;
+        public string rfidTag;
 
-        public GoodOnConveyor()
-        {
-        }
+        public GoodOnConveyor() { }
 
         public GoodOnConveyor(string rfidTag, int position)
         {
+            this.left = false;
             this.rfidTag = rfidTag;
             this.position = position;
         }

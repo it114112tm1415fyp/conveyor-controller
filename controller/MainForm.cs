@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using ConveyorController.Properties;
 
 namespace ConveyorController
 {
@@ -24,11 +25,11 @@ namespace ConveyorController
         private void MainForm_Load(object sender, EventArgs e)
         {
             Server.init();
-            ArtificialIntelligence.init();
             ConveyorBasicController.init(this);
             ConveyorCleverController.init();
             RfidBasicController.init();
             RfidCleverController.init();
+            _timer_update.Enabled = true;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -75,14 +76,12 @@ namespace ConveyorController
             consoleForm.Focus();
         }
 
-        private void _image_rfid_Click(object sender, EventArgs e)
+        private void _timer_update_Tick(object sender, EventArgs e)
         {
-            System.Collections.Specialized.NameValueCollection parameters = new System.Collections.Specialized.NameValueCollection();
-            parameters["rfid"] = "AD83 1100 45CB 1D70 0E00 005E";
-            string a = System.Text.Encoding.Default.GetString(new System.Net.WebClient().UploadValues("http://it114112tm1415fyp1.redirectme.net:6083/allocation/get_good_details", parameters));
-            Console.WriteLine(a);
-            Good b = LitJson.JsonMapper.ToObject<Good>(a);
-            Console.WriteLine(b.order_time);
+            _picture_box_conveyor.Image = ConveyorBasicController.connected ? Resources.green_lamp : Resources.darkgreen_lamp;
+            _picture_box_emergency.Image = ConveyorBasicController.output[(int)ConveyorOutputDevice.EmergencyStop] ? Resources.red_lamp : Resources.darkred_lamp;
+            _picture_box_rfid_reader.Image = RfidBasicController.connected ? Resources.green_lamp : Resources.darkgreen_lamp;
+            _picture_box_server.Image = Server.connected ? Resources.green_lamp : Resources.darkgreen_lamp;
         }
 
     }

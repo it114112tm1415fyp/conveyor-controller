@@ -13,25 +13,45 @@ namespace ConveyorController
 
         static clsReader reader;
 
+        static bool _connected = false; public static bool connected { get { return _connected; } private set { _connected = value; } }
+
         public static void init()
         {
             reader = new clsReader();
-            reader.InitOnCom(2);
-            if (reader.Connect() == "Connected")
-                reader.AcquireMode = "Global Scroll";
+            connect();
         }
+
+        static void connect()
+        {
+            reader.InitOnCom(2);
+            if (reader.Connect() == "Connected") {
+                reader.AcquireMode = "Global Scroll";
+                connected = true;
+            }
+        }
+
 
         public static string read()
         {
             string result = null;
-            if (reader.IsConnected)
+            if (!connected)
             {
-                string tag = reader.TagList;
-                tag = new Regex("(?<=Tag:)([\\dA-F]{4} ?){6}").Match(tag).ToString();
-                if (tag != "")
+                connect();
+            }
+            if (connected)
+            {
+                try
                 {
-                    result = tag;
-                    Console.WriteLine("RFID tag detected : {0}", result);
+                    string tag = reader.TagList;
+                    tag = new Regex("(?<=Tag:)([\\dA-F]{4} ?){6}").Match(tag).ToString();
+                    if (tag != "")
+                    {
+                        result = tag;
+                        Console.WriteLine("RFID tag detected : {0}", result);
+                    }
+                }
+                catch {
+                    connected = false;
                 }
             }
             return result;

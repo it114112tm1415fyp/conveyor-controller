@@ -8,6 +8,9 @@ namespace ConveyorController
     {
 
         void onGoodDetected(GoodOnConveyor good);
+        void onRfidScanned(GoodOnConveyor good);
+        void onGoodLifeCycleFinished(GoodOnConveyor good);
+        void onStartFailed(string reason);
 
     }
 }
