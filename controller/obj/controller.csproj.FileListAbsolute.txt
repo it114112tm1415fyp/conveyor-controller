@@ -89,3 +89,34 @@ D:\controller\controller\bin\Debug\AxInterop.DAQDILib.dll
 D:\controller\controller\bin\Debug\AxInterop.DAQDOLib.dll
 D:\controller\controller\obj\Debug\ConveyorController.AllocationForm.resources
 D:\controller\controller\bin\Debug\LitJson.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\controller.exe
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\controller.pdb
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\controller.exe
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\controller.pdb
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\AlienRFID1.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\AxInterop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQCounterLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQPulseLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\LitJson.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\AlienSS1.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\bin\Debug\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\Interop.DAQAILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\Interop.DAQAOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\Interop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\Interop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\AxInterop.DAQDILib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\AxInterop.DAQDOLib.dll
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\controller.csproj.ResolveComReference.cache
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.AllocationForm.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.ConsoleForm.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.ControllerForm.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.MainForm.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.MonitorForm.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\ConveyorController.Properties.Resources.resources
+C:\Documents and Settings\Administrator\桌面\Controller\controller\obj\Debug\controller.csproj.GenerateResource.Cache

@@ -15,7 +15,7 @@ namespace ConveyorController
         public delegate void OnRemoveOldGood(GoodOnConveyor good);
         public delegate void OnDetectNewGood(GoodOnConveyor good);
         public delegate void OnDetectRfid(GoodOnConveyor good);
-        public delegate void OnReceiveGoodDetails(Good good);
+        public delegate void OnReceiveGoodDetails(Good good, HandleMethod handleMethod);
         public delegate void OnReceiveErrorMessage(string reason);
 
         // sangleton instance
@@ -23,7 +23,7 @@ namespace ConveyorController
 
         public readonly static Dictionary<string, Good> GoodDetails = new Dictionary<string, Good>();
 
-        const string urlGetGoodDetails = "http://it114112tm1415fyp1.redirectme.net:6083/allocation/get_good_details";
+        const string urlGetGoodDetails = "http://it114112tm1415fyp1.redirectme.net:6083/allocation/get_goods_details";
 
         public static OnDetectNewGood onDetectNewGood;
         public static OnDetectRfid onDetectRfid;
@@ -50,7 +50,12 @@ namespace ConveyorController
             GoodOnConveyor goodOnConveyor = (GoodOnConveyor)pa[0];
             // parameters deserialization finished
             string rfidTag = goodOnConveyor.rfidTag;
-            if (!GoodDetails.ContainsKey(rfidTag))
+            Good good;
+            if (GoodDetails.ContainsKey(rfidTag))
+            {
+                good = GoodDetails[rfidTag];
+            }
+            else
             {
                 Console.WriteLine("Post get goods details : {0}", rfidTag);
                 NameValueCollection parameters = new NameValueCollection();
@@ -59,17 +64,36 @@ namespace ConveyorController
                 Console.WriteLine("Receive goods details of {0} : {1}", rfidTag, result);
                 if ((bool)JsonMapper.ToObject(result)["success"])
                 {
-                    Good good = JsonMapper.ToObject<Good>(result);
-                    good.rfidTag = rfidTag;
+                    good = JsonMapper.ToObject<Good>(result);
+                    good.rfid_tag = rfidTag;
                     GoodDetails.Add(rfidTag, good);
-                    HandleMethod handleMethod = new HandleMethod(good.store, false);
-                    ArtificialIntelligence.GoodsHandleMethod.Add(rfidTag, handleMethod);
-                    if (onReceiveGoodDetails != null)
-                        onReceiveGoodDetails(good);
                 }
                 else
-                    ArtificialIntelligence.stop();
+                {
+                    Console.Beep();
+                    //ArtificialIntelligence.stop();
+                    return;
+                }
             }
+            if (!ArtificialIntelligence.GoodsHandleMethod.ContainsKey(rfidTag))
+            {
+                HandleMethod handleMethod = new HandleMethod(exitPoint(good), false);
+                ArtificialIntelligence.GoodsHandleMethod.Add(rfidTag, handleMethod);
+                if (onReceiveGoodDetails != null)
+                    onReceiveGoodDetails(good, handleMethod);
+            }
+        }
+
+        public int exitPoint(Good good)
+        {
+            if (good.next_stop.type == "Store")
+            {
+                if (good.next_stop.id > 3)
+                    return 3;
+                return good.next_stop.id;
+            }
+            else
+                return 0;
         }
 
         public void onGoodLifeCycleFinished(GoodOnConveyor good)

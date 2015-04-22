@@ -170,20 +170,24 @@ namespace ConveyorController
             bool upload = (bool)pa[2];
             // parameters deserialization finished
             taskCount++;
-            po = new object[] { chId };
-            Thread.Sleep(TimeA);
-            chHoldNextGoodThreadMain(po);
-            if (upload)
+            try
             {
-                safeUploadGoodThreadMain(po);
+                po = new object[] { chId };
+                Thread.Sleep(TimeA);
+                chHoldNextGoodThreadMain(po);
+                if (upload)
+                {
+                    safeUploadGoodThreadMain(po);
+                }
+                else
+                {
+                    throwGoodThreadMain(po);
+                }
+                goodLeaveConveyor(good);
+                Thread.Sleep(TimeA);
+                chResetThreadMain(po);
             }
-            else
-            {
-                throwGoodThreadMain(po);
-            }
-            goodLeaveConveyor(good);
-            Thread.Sleep(TimeA);
-            chResetThreadMain(po);
+            catch { }
             taskCount--;
         }
 

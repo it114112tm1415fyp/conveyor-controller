@@ -19,6 +19,7 @@ namespace ConveyorController
 
         static byte[] ioOptionValues;
         static int connectionTestCount = 0;
+        static MainForm mainForm;
         static NetworkStream stream = null;
         static StreamReader reader = null;
         static StreamWriter writer = null;
@@ -26,8 +27,9 @@ namespace ConveyorController
 
         static bool _connected = false; public static bool connected { get { return _connected; } private set { _connected = value; } }
 
-        public static void init()
+        public static void init(MainForm mainForm)
         {
+            Server.mainForm = mainForm;
             new Thread(receiveThreadMain).Start();
             uint uintType = 0;
             ioOptionValues = new byte[Marshal.SizeOf(uintType) * 3];
@@ -58,11 +60,18 @@ namespace ConveyorController
                             try
                             {
                                 message = message.ToLower();
-                                string methodName = message.Substring(0, 2);
-                                methodName += message[4] == 'u' ? "C" : message.Substring(4, 1).ToUpper();
-                                int parameter = message[2] - 0x30 - 1;
-                                Console.WriteLine(string.Format("Call method: '{0}' with parameter '{1}'", methodName, parameter));
-                                typeof(ConveyorBasicController).GetMethod(methodName, BindingFlags.Static | BindingFlags.Public).Invoke(null, new object[] { parameter });
+                                if (message == "auto_start")
+                                    mainForm.artificialIntelligenceForm.try_auto_start();
+                                else if (message == "auto_stop")
+                                    mainForm.artificialIntelligenceForm.try_auto_stop();
+                                else if (!ArtificialIntelligence.running)
+                                {
+                                    string methodName = message.Substring(0, 2);
+                                    methodName += message[4] == 'u' ? "C" : message.Substring(4, 1).ToUpper();
+                                    int parameter = message[2] - 0x30 - 1;
+                                    Console.WriteLine(string.Format("Call method: '{0}' with parameter '{1}'", methodName, parameter));
+                                    typeof(ConveyorBasicController).GetMethod(methodName, BindingFlags.Static | BindingFlags.Public).Invoke(null, new object[] { parameter });
+                                }
                             }
                             catch
                             {

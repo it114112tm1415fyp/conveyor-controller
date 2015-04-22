@@ -20,11 +20,14 @@ namespace ConveyorController
             consoleForm = new ConsoleForm();
             consoleForm.Show();
             consoleForm.Hide();
+            artificialIntelligenceForm = new AllocationForm();
+            artificialIntelligenceForm.Show();
+            artificialIntelligenceForm.Hide();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Server.init();
+            Server.init(this);
             ConveyorBasicController.init(this);
             ConveyorCleverController.init();
             RfidBasicController.init();
@@ -39,13 +42,8 @@ namespace ConveyorController
 
         private void _button_allocation_Click(object sender, EventArgs e)
         {
-            if (artificialIntelligenceForm == null || artificialIntelligenceForm.IsDisposed)
-            {
-                artificialIntelligenceForm = new AllocationForm();
-                artificialIntelligenceForm.Show();
-            }
-            else
-                artificialIntelligenceForm.Focus();
+            artificialIntelligenceForm.Show();
+            artificialIntelligenceForm.Focus();
         }
 
         private void _button_conveyor_controller_Click(object sender, EventArgs e)

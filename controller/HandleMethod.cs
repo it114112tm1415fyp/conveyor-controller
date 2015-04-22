@@ -1,6 +1,6 @@
 namespace ConveyorController
 {
-    struct HandleMethod
+    public struct HandleMethod
     {
 
         public int exitPoint;

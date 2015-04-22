@@ -65,6 +65,7 @@
       <DependentUpon>AllocationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ArtificialIntelligenceInterface.cs" />
+    <Compile Include="NextStop.cs" />
     <Compile Include="Good.cs" />
     <Compile Include="HandleMethod.cs" />
     <Compile Include="Config.cs" />
